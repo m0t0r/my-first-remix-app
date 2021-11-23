@@ -9,7 +9,15 @@
     "postinstall": "remix setup node",
     "start": "remix-serve build",
     "format": "prettier --write .",
-    "lint": "eslint . --ext .js,.ts,.tsx --ignore-path .gitignore --fix"
+    "lint": "eslint . --ext .js,.ts,.tsx --ignore-path .gitignore --fix",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.@(js|ts|tsx|md|mdx)": [
+      "npm run lint",
+      "npm run format"
+    ]
   },
   "dependencies": {
     "@remix-run/react": "^1.0.3",
@@ -28,6 +36,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "prettier": "^2.4.1",
     "prettier-plugin-tailwind": "^2.2.12",
     "typescript": "^4.5.2"
