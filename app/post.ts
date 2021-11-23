@@ -1,0 +1,53 @@
+import path from 'path'
+import fs from 'fs/promises'
+import parseFrontMatter from 'front-matter'
+import {processMarkdown} from '@ryanflorence/md'
+
+type Post = {
+  slug: string
+  title: string
+}
+
+type NewPost = {
+  title: string
+  slug: string
+  markdown: string
+}
+
+export type PostMarkdownAttributes = {
+  title: string
+}
+
+const postsPath = path.join(__dirname, '../posts')
+
+async function getPosts() {
+  const dir = await fs.readdir(postsPath)
+  return Promise.all(
+    dir.map(async (filename) => {
+      const file = await fs.readFile(path.join(postsPath, filename))
+      const {attributes} = parseFrontMatter<PostMarkdownAttributes>(file.toString())
+      return {
+        slug: filename.replace(/\.md$/, ''),
+        title: attributes.title,
+      }
+    })
+  )
+}
+
+async function getPost(slug: string) {
+  const filepath = path.join(postsPath, slug + '.md')
+  const file = await fs.readFile(filepath)
+  const {attributes, body} = parseFrontMatter<PostMarkdownAttributes>(file.toString())
+  const html = await processMarkdown(body)
+
+  return {slug, html, title: attributes.title}
+}
+
+async function createPost(post: NewPost) {
+  const md = `---\ntitle: ${post.title}\n---\n\n${post.markdown}`
+  await fs.writeFile(path.join(postsPath, post.slug + '.md'), md)
+  return getPost(post.slug)
+}
+
+export {getPosts, getPost, createPost}
+export type {Post}
