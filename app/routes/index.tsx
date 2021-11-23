@@ -10,8 +10,8 @@ type IndexData = {
 // you can connect to a database or run any server side code you want right next
 // to the component that renders it.
 // https://remix.run/api/conventions#loader
-export let loader: LoaderFunction = () => {
-  let data: IndexData = {
+export const loader: LoaderFunction = () => {
+  const data: IndexData = {
     resources: [
       {
         name: 'Remix Docs',
@@ -47,7 +47,7 @@ export let loader: LoaderFunction = () => {
 }
 
 // https://remix.run/api/conventions#meta
-export let meta: MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return {
     title: 'Remix Starter',
     description: 'Welcome to remix!',
@@ -56,22 +56,22 @@ export let meta: MetaFunction = () => {
 
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
-  let data = useLoaderData<IndexData>()
+  const data = useLoaderData<IndexData>()
 
   return (
     <div className="remix__page">
       <main>
         <h2>Welcome to Remix!</h2>
-        <p>We're stoked that you're here. 🥳</p>
+        <p>We&apos;re stoked that you&apos;re here. 🥳</p>
         <p>
           Feel free to take a look around the code to see how Remix does things, it might be a bit
-          different than what you’re used to. When you're ready to dive deeper, we've got plenty of
-          resources to get you up-and-running quickly.
+          different than what you’re used to. When you&apos;re ready to dive deeper, we&apos;ve got
+          plenty of resources to get you up-and-running quickly.
         </p>
         <p>
           Check out all the demos in this starter, and then just delete the{' '}
-          <code>app/routes/demos</code> and <code>app/styles/demos</code> folders when you're ready
-          to turn this into your next project.
+          <code>app/routes/demos</code> and <code>app/styles/demos</code> folders when you&apos;re
+          ready to turn this into your next project.
         </p>
       </main>
       <aside>

@@ -1,15 +1,5 @@
 import * as React from 'react'
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useCatch,
-  Link,
-  NavLink,
-} from 'remix'
+import {Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch, Link} from 'remix'
 import type {LinksFunction} from 'remix'
 
 import deleteMeRemixStyles from '~/styles/demos/remix.css'
@@ -24,7 +14,7 @@ import darkStylesUrl from '~/styles/dark.css'
  *
  * https://remix.run/api/app#links
  */
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [
     {rel: 'stylesheet', href: globalStylesUrl},
     {
@@ -71,7 +61,7 @@ function Document({children, title}: {children: React.ReactNode; title?: string}
   )
 }
 
-function Layout({children}: React.PropsWithChildren<{}>) {
+function Layout({children}: React.PropsWithChildren<unknown>) {
   return (
     <div className="remix-app">
       <header className="remix-app__header">
@@ -110,7 +100,7 @@ function Layout({children}: React.PropsWithChildren<{}>) {
 }
 
 export function CatchBoundary() {
-  let caught = useCatch()
+  const caught = useCatch()
 
   let message
   switch (caught.status) {

@@ -1,10 +1,10 @@
-import {useCatch, Link, json, useLoaderData} from 'remix'
+import {useCatch, json, useLoaderData} from 'remix'
 import type {LoaderFunction, MetaFunction} from 'remix'
 
 // The `$` in route filenames becomes a pattern that's parsed from the URL and
 // passed to your loaders so you can look up data.
 // - https://remix.run/api/conventions#loader-params
-export let loader: LoaderFunction = async ({params}) => {
+export const loader: LoaderFunction = async ({params}) => {
   // pretend like we're using params.id to look something up in the db
 
   if (params.id === 'this-record-does-not-exist') {
@@ -38,7 +38,7 @@ export let loader: LoaderFunction = async ({params}) => {
 }
 
 export default function ParamDemo() {
-  let data = useLoaderData()
+  const data = useLoaderData()
   return (
     <h1>
       The param is <i style={{color: 'red'}}>{data.param}</i>
@@ -50,7 +50,7 @@ export default function ParamDemo() {
 // https://remix.run/api/remix#usecatch
 // https://remix.run/api/guides/not-found
 export function CatchBoundary() {
-  let caught = useCatch()
+  const caught = useCatch()
 
   let message: React.ReactNode
   switch (caught.status) {
@@ -61,8 +61,10 @@ export function CatchBoundary() {
           webmaster ({caught.data.webmasterEmail}) for access.
         </p>
       )
+      break
     case 404:
       message = <p>Looks like you tried to visit a page that does not exist.</p>
+      break
     default:
       message = (
         <p>
@@ -78,8 +80,8 @@ export function CatchBoundary() {
       <h2>Oops!</h2>
       <p>{message}</p>
       <p>
-        (Isn't it cool that the user gets to stay in context and try a different link in the parts
-        of the UI that didn't blow up?)
+        (Isn&apos;t it cool that the user gets to stay in context and try a different link in the
+        parts of the UI that didn&apos;t blow up?)
       </p>
     </>
   )
@@ -94,14 +96,14 @@ export function ErrorBoundary({error}: {error: Error}) {
       <h2>Error!</h2>
       <p>{error.message}</p>
       <p>
-        (Isn't it cool that the user gets to stay in context and try a different link in the parts
-        of the UI that didn't blow up?)
+        (Isn&apos;t it cool that the user gets to stay in context and try a different link in the
+        parts of the UI that didn&apos;t blow up?)
       </p>
     </>
   )
 }
 
-export let meta: MetaFunction = ({data}) => {
+export const meta: MetaFunction = ({data}) => {
   return {
     title: data ? `Param: ${data.param}` : 'Oops...',
   }

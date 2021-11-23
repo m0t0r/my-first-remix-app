@@ -3,13 +3,13 @@ import type {MetaFunction, LinksFunction} from 'remix'
 
 import stylesUrl from '~/styles/demos/about.css'
 
-export let meta: MetaFunction = () => {
+export const meta: MetaFunction = () => {
   return {
     title: 'About Remix',
   }
 }
 
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: stylesUrl}]
 }
 
@@ -19,8 +19,8 @@ export default function Index() {
       <div className="about__intro">
         <h2>About Us</h2>
         <p>
-          Ok, so this page isn't really <em>about us</em>, but we did want to show you a few more
-          things Remix can do.
+          Ok, so this page isn`&apos;t really <em>about us</em>, but we did want to show you a few
+          more things Remix can do.
         </p>
         <p>
           Did you notice that things look a little different on this page? The CSS that we import in
